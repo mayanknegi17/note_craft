@@ -181,3 +181,24 @@ ul li p {
         background-position-x: -20%;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    .notes-container {
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin: 0;
+        height: auto;
+        padding: 15px 10px;
+    }
+    .nc-left-section {
+        width: 100%;
+    }
+    .ncls-form {
+        width: 100%;
+    }
+    .nc-right-section {
+        width: 100%;
+        margin-top: 30px;
+    }
+}
