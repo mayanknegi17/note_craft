@@ -83,8 +83,8 @@ function Home() {
     }
 
     const searchValue = async (e) => {
-        console.log(454545, e.key, search);
         if(e.key == "Enter") {
+            setLoading(true);
             try {
                 const response = await axios.get(`https://cloud-notes-znsm.onrender.com/api/todos/search?query=${search}`);
                 if (response.status == 200) {
