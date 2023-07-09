@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import TopBarLoader from './components/TopBarLoader';
 
 function Home() {
 
@@ -77,11 +78,30 @@ function Home() {
         }
     }
 
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
+    }
+
+    const searchValue = async (e) => {
+        console.log(454545, e.key, search);
+        if(e.key == "Enter") {
+            try {
+                const response = await axios.get(`https://cloud-notes-znsm.onrender.com/api/todos/search?query=${search}`);
+                if (response.status == 200) {
+                    setLoading(false);
+                    setNotesList(response.data);
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+    }
+
     return (
         <div className='notes-container'>
             <section className='nc-left-section'>
                 <form className='ncls-form'>
-                    {loading && <h1>Loading....</h1>}
+                    {loading && <TopBarLoader />}
                     <h3>Write Your Note</h3>
                     <div className='nclsf-field'>
                         <label>Title</label>
@@ -91,13 +111,13 @@ function Home() {
                         <label>Description</label>
                         <input placeholder='Write your note here' name="description" value={noteData.description} onChange={handleInput} />
                     </div>
-                    <button type='button' onClick={handleAddNote} disabled={noteData.title == "" || noteData.description == ""}>Add Note</button>
+                    <button type='button' onClick={handleAddNote} disabled={noteData.title == "" || noteData.description == "" || loading}>Add Note</button>
                 </form>
             </section>
             <section className='nc-right-section'>
                 <h3>Notes Collection</h3>
                 <div className='ncrs-search'>
-                    <input type='text' placeholder='Search...' />
+                    <input type='text' placeholder='Search...' value={search} onChange={handleSearch} onKeyDown={searchValue} />
                 </div>
                 <ul>
                     {notesList.length !== 0 ?
@@ -106,11 +126,11 @@ function Home() {
                                 <h5>{item.title}</h5>
                                 <p>{item.description}</p>
                                 <div className='list-button'>
-                                    <button type='button' >Update</button>
-                                    <button type='button' className='delete' onClick={() => handleDelete(item)}>Delete</button>
+                                    {/* <button type='button' >Update</button> */}
+                                    <button type='button' className='delete' onClick={() => handleDelete(item)} disabled={loading}>Delete</button>
                                 </div>
                             </li>) :
-                        <li>No Data Found</li>
+                        <li className='no-data-found'>No Notes Found</li>
                     }
                 </ul>
             </section>
