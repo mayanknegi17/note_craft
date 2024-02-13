@@ -12,7 +12,7 @@ body {
     display: flex;
     flex-direction: row;
     width: 70%;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     padding: 10px;
     margin: 0 auto;
@@ -182,6 +182,19 @@ ul li p {
     }
 }
 
+.new-user-welcome-note {
+    width: 70%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.new-user-welcome-note h3 {
+    font-weight: 500;
+    text-align: center;
+    font-size: 14px;
+    margin: 0;
+}
+
 @media only screen and (max-width: 600px) {
     .notes-container {
         width: 100%;
@@ -190,6 +203,13 @@ ul li p {
         margin: 0;
         height: auto;
         padding: 15px 10px;
+    }
+    .new-user-welcome-note {
+        padding: 15px 10px;
+        width: 100%;
+    }
+    .new-user-welcome-note h3 {
+        font-size: 12px;
     }
     .nc-left-section {
         width: 100%;
@@ -200,5 +220,8 @@ ul li p {
     .nc-right-section {
         width: 100%;
         margin-top: 30px;
+    }
+    .ncls-form h3, .nc-right-section h3 {
+        margin-bottom: 10px;
     }
 }

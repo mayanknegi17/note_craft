@@ -30,6 +30,7 @@ function Home() {
                 setLoading(false);
             }
         } catch (error) {
+            setLoading(false);
             console.error('Error fetching data:', error);
         }
     }
@@ -48,6 +49,7 @@ function Home() {
                     setCallGet(!callGet);
                 }
             } catch (error) {
+                setLoading(false);
                 console.error('Error fetching data:', error);
             }
         }
@@ -98,43 +100,48 @@ function Home() {
     }
 
     return (
-        <div className='notes-container'>
-            <section className='nc-left-section'>
-                <form className='ncls-form'>
-                    {loading && <TopBarLoader />}
-                    <h3>Write Your Note</h3>
-                    <div className='nclsf-field'>
-                        <label>Title</label>
-                        <input type="text" name="title" value={noteData.title} onChange={handleInput} />
-                    </div>
-                    <div className='nclsf-field'>
-                        <label>Description</label>
-                        <input placeholder='Write your note here' name="description" value={noteData.description} onChange={handleInput} />
-                    </div>
-                    <button type='button' onClick={handleAddNote} disabled={noteData.title == "" || noteData.description == "" || loading}>Add Note</button>
-                </form>
-            </section>
-            <section className='nc-right-section'>
-                <h3>Notes Collection</h3>
-                <div className='ncrs-search'>
-                    <input type='text' placeholder='Search...' value={search} onChange={handleSearch} onKeyDown={searchValue} />
-                </div>
-                <ul>
-                    {notesList.length !== 0 ?
-                        notesList.map((item, index) =>
-                            <li key={index}>
-                                <h5>{item.title}</h5>
-                                <p>{item.description}</p>
-                                <div className='list-button'>
-                                    {/* <button type='button' >Update</button> */}
-                                    <button type='button' className='delete' onClick={() => handleDelete(item)} disabled={loading}>Delete</button>
-                                </div>
-                            </li>) :
-                        <li className='no-data-found'>No Notes Found</li>
-                    }
-                </ul>
-            </section>
+        <>
+        <div className='new-user-welcome-note'>
+            <h3>Welcome to NoteCraft! 📝 I'm thrilled to have you here. Whether you're looking to jot down ideas, organize your thoughts, or simply explore the world of note-taking, you're in the right place. Feel free to browse through our collection of notes, and if you have any questions or need assistance, don't hesitate to reach out. Happy note-taking!</h3>
         </div>
+            <div className='notes-container'>
+                <section className='nc-left-section'>
+                    <form className='ncls-form'>
+                        {loading && <TopBarLoader />}
+                        <h3>Write Your Note</h3>
+                        <div className='nclsf-field'>
+                            <label>Title</label>
+                            <input type="text" name="title" value={noteData.title} onChange={handleInput} />
+                        </div>
+                        <div className='nclsf-field'>
+                            <label>Description</label>
+                            <input placeholder='Write your note here' name="description" value={noteData.description} onChange={handleInput} />
+                        </div>
+                        <button type='button' onClick={handleAddNote} disabled={noteData.title == "" || noteData.description == "" || loading}>Add Note</button>
+                    </form>
+                </section>
+                <section className='nc-right-section'>
+                    <h3>Notes Collection</h3>
+                    <div className='ncrs-search'>
+                        <input type='text' placeholder='Search...' value={search} onChange={handleSearch} onKeyDown={searchValue} />
+                    </div>
+                    <ul>
+                        {notesList.length !== 0 ?
+                            notesList.map((item, index) =>
+                                <li key={index}>
+                                    <h5>{item.title}</h5>
+                                    <p>{item.description}</p>
+                                    <div className='list-button'>
+                                        {/* <button type='button' >Update</button> */}
+                                        <button type='button' className='delete' onClick={() => handleDelete(item)} disabled={loading}>Delete</button>
+                                    </div>
+                                </li>) :
+                            <li className='no-data-found'>No Notes Found</li>
+                        }
+                    </ul>
+                </section>
+            </div>
+        </>
     )
 }
 
